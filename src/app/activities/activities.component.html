@@ -1,0 +1,51 @@
+<h2>My Activities</h2>
+<div class="container">
+    <div class="content">
+      <div *ngIf="activities" class="table-center">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th>IsCompleted</th>
+              <th>IsDeleted</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor='let activity of activities'>
+              <td>{{activity.name}}</td>
+              <td>{{activity.description}}</td>
+              <td>{{activity.isCompleted}}</td>
+              <td>{{activity.isDeleted}}</td>
+            </tr>
+          </tbody>
+        </table>
+     </div>
+    </div>
+  </div>
+  <div>
+  <div>
+      <label id="new-activity-name">Activity name: </label>
+      <input for="new-activity-name" #activityName />
+      <label id="new-activity-description">Description: </label>
+      <input for='new-activity-description' #activityDescription/>
+      <!-- (click) passes input value to add() and then clears the input -->
+      <button class="add-button" 
+        (click)="add(activityName.value,activityDescription.value); 
+        activityName.value=''">
+        Add activity
+      </button>
+    </div>
+        <div *ngFor="let activity of activities">
+          <div *ngIf="!activity.isCompleted">
+            <a routerLink="/detail/{{activity.activityId}}">
+              {{activity.name}}
+            </a>
+            {{activity.description}}
+            <button class="delete" title="delete activity"
+            (click)="delete(activity)">x</button>
+            <app-checkbox [activity]='activity'></app-checkbox>
+          </div>
+        </div>
+  </div>
+  

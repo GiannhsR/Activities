@@ -1,0 +1,18 @@
+<div *ngIf="activity">
+    <h2>{{activity.name | uppercase}} Details</h2>
+    <div><span>id: </span>{{activity.activityId}}</div>
+    <div>
+        <label for="activity-name">Activity name: </label>
+        <input id="activity-name" [(ngModel)]="activity.name" placeholder="name">
+    </div>
+    <div>
+        <label for="activity-description">Description: </label>
+        <input id="activity-description" [(ngModel)]="activity.description" placeholder="description">
+        <span>
+            <p>Deleted:</p>
+            <p>{{activity.isDeleted}}</p>
+        </span>
+    </div>
+    <button (click)="goBack()">Go Back</button>
+    <button (click)="updateActivity()">Save Changes</button>
+</div>
