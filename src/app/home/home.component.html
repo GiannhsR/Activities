@@ -1,4 +1,9 @@
-<a *ngFor="let activity of activities"
-  routerLink="/detail/{{activity.activityId}}">
-  {{activity.name}}
-</a>
+<h3>Uncompleted activities:</h3>
+<div *ngFor="let activity of activities">
+  <div *ngIf="!activity.isCompleted">
+    <a routerLink="/detail/{{activity.activityId}}">
+      {{activity.name}}
+    </a>
+  </div>
+</div>
+

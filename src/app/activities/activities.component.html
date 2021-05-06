@@ -1,29 +1,5 @@
 <h2>My Activities</h2>
 <div class="container">
-    <div class="content">
-      <div *ngIf="activities" class="table-center">
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Description</th>
-              <th>IsCompleted</th>
-              <th>IsDeleted</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor='let activity of activities'>
-              <td>{{activity.name}}</td>
-              <td>{{activity.description}}</td>
-              <td>{{activity.isCompleted}}</td>
-              <td>{{activity.isDeleted}}</td>
-            </tr>
-          </tbody>
-        </table>
-     </div>
-    </div>
-  </div>
-  <div>
   <div>
       <label id="new-activity-name">Activity name: </label>
       <input for="new-activity-name" #activityName />
@@ -37,7 +13,7 @@
       </button>
     </div>
         <div *ngFor="let activity of activities">
-          <div *ngIf="!activity.isCompleted">
+          <div *ngIf="!activity.isDeleted">
             <a routerLink="/detail/{{activity.activityId}}">
               {{activity.name}}
             </a>
