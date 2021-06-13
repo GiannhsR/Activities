@@ -1,6 +1,6 @@
 <h3>Uncompleted activities:</h3>
 <div *ngFor="let activity of activities">
-  <div *ngIf="!activity.isCompleted">
+  <div *ngIf="!activity.isCompleted && !activity.isDeleted">
     <a routerLink="/detail/{{activity.activityId}}">
       {{activity.name}}
     </a>

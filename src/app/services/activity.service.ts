@@ -19,22 +19,20 @@ export class ActivityService {
 
   constructor(private _http: HttpClient) { }
 
-  private activitiesUrl = 'http://localhost:5000/api/Activities/AllActivities'; //URL to Web API
-  private activityUrl = 'http://localhost:5000/api/Activities/Activity';
-  private updateActivityURL = 'http://localhost:5000/api/Activities/Update'; 
-  private createActivityURL = 'http://localhost:5000/api/Activities/Create';
-  private deleteActivityURL = 'http://localhost:5000/api/Activities/Delete';
+  private webApiUrl = 'http://localhost:5000/api/';
   
   getActivities(): Observable<Activity[]>{
-    return this._http.get<Activity[]>(this.activitiesUrl)
+    var activitiesUrl = this.webApiUrl.concat('Activities/AllActivities');
+    return this._http.get<Activity[]>(activitiesUrl)
     .pipe(
       catchError(this.handleError<Activity[]>('getActivities', []))
       );
   }
 
-  /** GET hero by id. Will 404 if id not found */
+  /** GET activity by id. Will 404 if id not found */
   getActivity(activityId: number): Observable<Activity>{
-    const url = `${this.activityUrl}/${activityId}`;
+    var activityUrl = this.webApiUrl.concat('Activities/Activity')
+    const url = `${activityUrl}/${activityId}`;
     return this._http.get<Activity>(url)
     .pipe(
       catchError(this.handleError<Activity>(`getActivity id=${activityId}`))
@@ -42,22 +40,25 @@ export class ActivityService {
   }
  
   updateActivity(activity: Activity): Observable<Activity>{
+    var updateActivityURL = this.webApiUrl.concat('Activities/Update')
     const url = activity.activityId;
-    return this._http.put<Activity>(`${this.updateActivityURL}/${url}`, activity, httpOptions)
+    return this._http.put<Activity>(`${updateActivityURL}/${url}`, activity, httpOptions)
     .pipe(
       catchError(this.handleError<Activity>(`updateActivity`, activity))
     );
   }
 
   addActivity(activity: Activity){
-    return this._http.post<Activity>(this.createActivityURL, activity, httpOptions).
+    var createActivityURL = this.webApiUrl.concat('Activities/Create');
+    return this._http.post<Activity>(createActivityURL, activity, httpOptions).
     pipe(
       catchError(this.handleError<Activity>('addActivity'))
     );
   }
 
   deleteActivity(activityId: number){
-    return this._http.delete<Activity>(`${this.deleteActivityURL}/${activityId}`,httpOptions).
+    var deleteActivityURL = this.webApiUrl.concat('Activities/Delete');
+    return this._http.delete<Activity>(`${deleteActivityURL}/${activityId}`,httpOptions).
     pipe(
       catchError(this.handleError<Activity>(`deleteActivity id=${activityId}`))
     )
